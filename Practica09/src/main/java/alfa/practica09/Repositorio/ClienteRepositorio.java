@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package alfa.practica09.Repositorio;
 
 import java.sql.PreparedStatement;
@@ -50,7 +46,6 @@ public class ClienteRepositorio {
                rs.getString("apellidoM"),
                rs.getString("apellidoP"),   
                rs.getString("nombre"),
-                       
                rs.getString("calle"),
                rs.getString("estado"),
                rs.getString("numero"),
