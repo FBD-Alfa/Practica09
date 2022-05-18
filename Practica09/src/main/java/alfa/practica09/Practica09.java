@@ -6,8 +6,8 @@
 package alfa.practica09;
 
 import alfa.practica09.Conexion.ConexionBD;
-import alfa.practica09.Modelo.Cliente;
-import alfa.practica09.Servicio.ClienteServicio;
+import alfa.practica09.Modelo.Estetica;
+import alfa.practica09.Servicio.EsteticaServicio;
 import java.util.List;
 
 /**
@@ -17,17 +17,17 @@ import java.util.List;
 public class Practica09 {
 
     public static void main(String[] args) {
-       ConexionBD conexion= new ConexionBD();
-       try {
-           conexion.conectar();
-           ClienteServicio cliente = new ClienteServicio();
-           List<Cliente> listaClientes= cliente.getClientes();
-           for (int i=0; i<5; i++){
-           System.out.println(listaClientes.get(i));
-           }
-           conexion.cerrar();
-       }catch(Exception e){
-          e.printStackTrace();
-       }
+        ConexionBD conexion= new ConexionBD();
+        try {
+            conexion.conectar();
+            EsteticaServicio estetica = new EsteticaServicio();
+            List<Estetica> listaEsteticas= estetica.getEsteticas();
+            for (int i=0; i<5; i++){
+                System.out.println(listaEsteticas.get(i));
+            }
+            conexion.cerrar();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

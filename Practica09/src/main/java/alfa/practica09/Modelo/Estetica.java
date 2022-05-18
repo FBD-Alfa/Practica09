@@ -172,7 +172,9 @@ public class Estetica {
      */
     @Override
     public String toString() {
-        return this.idEstetica + "," + this.nombre + "," +
-        horario + "," + noConsultorio;
+        return "Estetica{" + "idEstetica=" + idEstetica + ", nombre=" + nombre +
+                ", estado=" + estado + ", calle=" + calle + 
+                ", numero=" + numero + ", cp=" + cp + ", horario=" + horario +
+                ", noConsultorio=" + noConsultorio + '}';
     }
 }
