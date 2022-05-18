@@ -7,8 +7,6 @@ package alfa.practica09;
 import alfa.practica09.Modelo.Cliente;
 import alfa.practica09.Servicio.ClienteServicio;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -107,17 +105,26 @@ public class MenuCliente {
                 email,
                 esFrecuenteV);
         clientesBase.insertarCliente(c);
+        clientes = clientesBase.getClientes();
     }
-    
-    public String verificaCURP(){
-        System.out.println("Escribe el curp del nuevo cliente con el formato LLLLNNNNNNLLLLLLNN\n"+
-                           "Donde L es una letra en mayuscula y N es un número.");
+
+    public String verificaCURP() throws Exception {
+        clientes = clientesBase.getClientes();
+        System.out.println("Escribe el curp del nuevo cliente con el formato LLLLNNNNNNLLLLLLNN\n"
+                         + "Donde L es una letra en mayuscula y N es un número.");
         String curp = entrada.nextLine();
-        if (curp.length() == 18){
+        if (curp.length() == 18) {
+            Cliente c = dameCliente(curp);
+            if (c != null) {
+                    System.out.println("El cliente ya existe, el CURP ingresado ya se encuentra en la base.");
+                    System.out.println(c.toString());
+                    verificaCURP();
+                    return "";
+            }
             return curp;
-        }else{
-        System.out.println("El CURP debe de ser de 18 elementos, vuelva a intentarlo");
-        verificaCURP();
+        } else {
+            System.out.println("El CURP debe de ser de 18 elementos, vuelva a intentarlo");
+            verificaCURP();
         }
         return "";
     }
@@ -151,12 +158,14 @@ public class MenuCliente {
     }
 
     public boolean verificaEsFrecuente() {
-        System.out.println("Escribe si, si el nuevo cliente es frecuente, no, en caso contrario");
+        System.out.println("¿El cliente es frecuente?\n"
+                + "1-. Si\n"
+                + "2-. No");
         String esFrecuente = entrada.nextLine();
         switch (esFrecuente) {
-            case "si":
+            case "1":
                 return true;
-            case "no":
+            case "2":
                 return false;
             default:
                 System.out.println("Da un valor valido");
@@ -170,7 +179,7 @@ public class MenuCliente {
         String telefono = entrada.nextLine();
         if (telefono.length() != 10) {
             System.out.println("Ocurrio un error, el telefono no es valido,"
-                    + "tiene más de 10 digitos.\nVuelva a intentarlo.");
+                    + "no cuenta con 10 digitos.\nVuelva a intentarlo.");
             verificaTelefono();
         } else {
             try {
@@ -178,7 +187,8 @@ public class MenuCliente {
                 return telefonoValido;
             } catch (NumberFormatException ex) {
                 //ex.printStackTrace();
-                System.out.println("Ocurrio un error, el telefono no es valido,vuelva a intentarlo");
+                System.out.println("Ocurrio un error, el telefono no es valido\n"
+                        + "Vuelva a intentarlo");
                 verificaTelefono();
                 return 0;
             }
@@ -187,16 +197,27 @@ public class MenuCliente {
     }
 
     public Date verificaCumpleanios() {
-        System.out.println("Escribe el cumpleaños del nuevo cliente");
+        System.out.println("Escribe el cumpleaños del nuevo cliente.\n"
+                + "El formato del cumpleaños debe ser AAAA-MM-DD.");
         String cumpleanios = entrada.nextLine();
         try {
             Date cumpleaniosValido = Date.valueOf(cumpleanios);
             return cumpleaniosValido;
-        } catch (NumberFormatException ex) {
+        } catch (IllegalArgumentException ex) {
             //ex.printStackTrace();
-            System.out.println("Ocurrio un error, el cumpleaños no es valido,vuelva a intentarlo");
+            System.out.println("Ocurrio un error, el cumpleaños no es valido\n"
+                    + "Vuelva a intentarlo");
             verificaCumpleanios();
             return null;
         }
+    }
+
+    public Cliente dameCliente(String curp) {
+        for (Cliente c : clientes) {
+            if (c.getCurp().equals(curp)) {
+                return c;
+            }
+        }
+        return null;
     }
 }

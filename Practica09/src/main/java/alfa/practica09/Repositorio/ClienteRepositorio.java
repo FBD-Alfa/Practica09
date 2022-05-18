@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
 import alfa.practica09.Conexion.ConexionBD;
 import alfa.practica09.Modelo.Cliente;
 
@@ -18,7 +16,7 @@ import alfa.practica09.Modelo.Cliente;
  * @version  
  */
 public class ClienteRepositorio {
-    private ConexionBD conexion = new ConexionBD();
+    private final ConexionBD conexion = new ConexionBD();
     //Objeto para ejecutar queries
     private Statement stmt;
     //Objeto para prepara un querie para su ejecucion
