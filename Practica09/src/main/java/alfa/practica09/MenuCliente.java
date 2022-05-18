@@ -6,6 +6,9 @@ package alfa.practica09;
 
 import alfa.practica09.Modelo.Cliente;
 import alfa.practica09.Servicio.ClienteServicio;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -40,6 +43,7 @@ public class MenuCliente{
         switch (eleccion) {
             case "1":
                 System.out.println("Eligio Crear Cliente");
+                despliegaClienteNuevo();
                 break;
             case "2":
                 System.out.println("Eligio Leer Clientes");
@@ -70,4 +74,115 @@ public class MenuCliente{
         despliegaMenuCliente();
     }
     
+    public void despliegaClienteNuevo() throws Exception{
+        String curp,apellidoM,apellidoP, nombre, estado, calle;
+        String cumpleanios,email,esFrecuente;
+        System.out.println("Escribe el curp del nuevo cliente");
+        curp = entrada.nextLine();
+        System.out.println("Escribe el apellido materno del nuevo cliente");
+        apellidoM = entrada.nextLine();
+        System.out.println("Escribe el epellido paterno del nuevo cliente");
+        apellidoP = entrada.nextLine();
+        System.out.println("Escribe el nombre del nuevo cliente");
+        nombre = entrada.nextLine();
+        System.out.println("Escribe el estado del nuevo cliente");
+        estado = entrada.nextLine();
+        System.out.println("Escribe la calle del nuevo cliente");
+        calle = entrada.nextLine();
+        int numeroV = verificaNumero();
+        int cpV = verificaCP();
+        long telefonoV = verificaTelefono();
+        Date cumpleaniosV = verificaCumpleanios();
+        System.out.println("Escribe el email del nuevo cliente");
+        email = entrada.nextLine();
+        boolean esFrecuenteV = verificaEsFrecuente();
+        Cliente c = new Cliente(curp,
+                                apellidoM,
+                                apellidoP,
+                                nombre,
+                                estado,
+                                calle,
+                                numeroV,
+                                cpV,
+                                telefonoV,
+                                cumpleaniosV,
+                                email,
+                                esFrecuenteV);
+        clientesBase.insertarCliente(c);
+    }
+    
+    public int verificaCP(){
+        System.out.println("Escribe el cp del nuevo cliente");
+        String cp = entrada.nextLine();
+        try {
+            int cpValido = Integer.parseInt(cp);
+            return cpValido;
+        }
+        catch (NumberFormatException ex){
+            //ex.printStackTrace();
+            System.out.println("Ocurrio un error, el cp no es valido,vuelva a intentarlo");
+            verificaCP();
+            return 0;
+        }
+    }
+    
+    public int verificaNumero(){
+        System.out.println("Escribe el numero exterior del nuevo cliente");
+        String numero = entrada.nextLine();
+        try {
+            int numeroValido = Integer.parseInt(numero);
+            return numeroValido;
+        }
+        catch (NumberFormatException ex){
+            //ex.printStackTrace();
+            System.out.println("Ocurrio un error, el numero no es valido,vuelva a intentarlo");
+            verificaNumero();
+            return 0;
+        }
+    }
+    public boolean verificaEsFrecuente(){
+        System.out.println("Escribe si, si el nuevo cliente es frecuente, no, en caso contrario");
+        String esFrecuente = entrada.nextLine();
+        switch (esFrecuente) {
+            case "si":
+                return true;
+            case "no":
+                return false;
+            default:
+                System.out.println("Da un valor valido");
+                verificaEsFrecuente();
+                return false;
+        }
+    }
+    
+    
+    public long verificaTelefono(){
+        System.out.println("Escribe el telefono del nuevo cliente");
+        String telefono = entrada.nextLine();
+        try {
+            long telefonoValido = Long.parseLong(telefono);
+            return telefonoValido;
+        }
+        catch (NumberFormatException ex){
+            //ex.printStackTrace();
+            System.out.println("Ocurrio un error, el telefono no es valido,vuelva a intentarlo");
+            verificaTelefono();
+            return 0;
+        }
+    }
+    
+    public Date verificaCumpleanios(){
+        System.out.println("Escribe el cumpleaños del nuevo cliente");
+        String cumpleanios = entrada.nextLine();
+        try {
+            Date cumpleaniosValido = Date.valueOf(cumpleanios);
+            return cumpleaniosValido;
+        }
+        catch (NumberFormatException ex){
+            //ex.printStackTrace();
+            System.out.println("Ocurrio un error, el cumpleaños no es valido,vuelva a intentarlo");
+            verificaCumpleanios();
+            return null;
+        }
+    }
 }

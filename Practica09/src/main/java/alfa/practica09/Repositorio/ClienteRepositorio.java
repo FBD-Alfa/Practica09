@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import alfa.practica09.Conexion.ConexionBD;
 import alfa.practica09.Modelo.Cliente;
 
@@ -48,12 +50,12 @@ public class ClienteRepositorio {
                rs.getString("nombre"),
                rs.getString("calle"),
                rs.getString("estado"),
-               rs.getString("numero"),
+               rs.getInt("numero"),
                rs.getInt("cp"),
-               rs.getString("telefono"),
-               rs.getString("cumpleanios"),
+               rs.getLong("telefono"),
+               rs.getDate("cumpleanios"),
                rs.getString("email"),
-               rs.getString("esFrecuente"));
+               rs.getBoolean("esFrecuente"));
                //Agrego el resultado
                clienteLista.add(op);
            }        
@@ -95,12 +97,12 @@ public class ClienteRepositorio {
                rs.getString("nombre"),
                rs.getString("calle"),
                rs.getString("estado"),
-               rs.getString("numero"),
+               rs.getInt("numero"),
                rs.getInt("cp"),
-               rs.getString("telefono"),
-               rs.getString("cumpleanios"),
+               rs.getLong("telefono"),
+               rs.getDate("cumpleanios"),
                rs.getString("email"),
-               rs.getString("esFrecuente"));
+               rs.getBoolean("esFrecuente"));
             }
         }catch(SQLException sql){
             sql.printStackTrace();
@@ -120,8 +122,9 @@ public class ClienteRepositorio {
      */
     public void insertarCliente(Cliente cliente){
         String query = "INSERT INTO cliente "
-                + "(curp, nombre, apellidoPaterno, apellidoMaterno, horario, ciudad, calle, cp)"
-                + " VALUES (?,?,?,?,?,?,?,?)";
+                + "(curp, apellidoM, apellidoP, nombre, estado, "
+                + "calle, numero, cp, telefono, cumpleanios, email, esFrecuente)"
+                + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         try{
             conexion.conectar();
             ps = conexion.prepararDeclaracionPreparada(query);       
@@ -131,12 +134,12 @@ public class ClienteRepositorio {
             ps.setString(4, cliente.getNombre());
             ps.setString(5, cliente.getEstado());
             ps.setString(6, cliente.getCalle());
-            ps.setString(7, cliente.getNumero());
+            ps.setInt(7, cliente.getNumero());
             ps.setInt(8, cliente.getCp());
-            ps.setString(9, cliente.getTelefono());
-            ps.setString(10, cliente.getCumpleanios());
+            ps.setLong(9, cliente.getTelefono());
+            ps.setDate(10, cliente.getCumpleanios());
             ps.setString(11, cliente.getEmail());
-            ps.setString(12, cliente.getEsFrecuente());
+            ps.setBoolean(12, cliente.getEsFrecuente());
             ps.executeUpdate();    //Utilizamos esta instruccion para insertar y actualizar
         }catch(SQLException sql){
             sql.printStackTrace();
@@ -167,12 +170,12 @@ public class ClienteRepositorio {
             ps.setString(4, cliente.getNombre());
             ps.setString(5, cliente.getEstado());
             ps.setString(6, cliente.getCalle());
-            ps.setString(7, cliente.getNumero());
+            ps.setInt(7, cliente.getNumero());
             ps.setInt(8, cliente.getCp());
-            ps.setString(9, cliente.getTelefono());
-            ps.setString(10, cliente.getCumpleanios());
+            ps.setLong(9, cliente.getTelefono());
+            ps.setDate(10, cliente.getCumpleanios());
             ps.setString(11, cliente.getEmail());
-            ps.setString(12, cliente.getEsFrecuente());
+            ps.setBoolean(12, cliente.getEsFrecuente());
             ps.setString(13, curp);
             ps.executeUpdate();
         }catch(SQLException sql){

@@ -4,6 +4,10 @@
  */
 package alfa.practica09.Modelo;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+
 /**
  *
  * @author alex89
@@ -15,12 +19,12 @@ public class Cliente {
     private String nombre;
     private String estado;
     private String calle;
-    private String numero;
+    private int numero;
     private int cp;  
-    private String telefono; 
-    private String cumpleanios; 
+    private long telefono; 
+    private Date cumpleanios; 
     private String email;
-    private String esFrecuente;
+    private boolean esFrecuente;
 
     
      /**
@@ -38,7 +42,7 @@ public class Cliente {
      * @param email-- El email del cliente
      * @param esFrecuente-- Si es frecuente o no
      */
-    public Cliente(String curp, String apellidoM, String apellidoP, String nombre, String estado, String calle, String numero, int cp, String telefono, String cumpleanios, String email, String esFrecuente) {
+    public Cliente(String curp, String apellidoM, String apellidoP, String nombre, String estado, String calle, int numero, int cp, long telefono, Date cumpleanios, String email, boolean esFrecuente) {
         this.curp = curp;
         this.apellidoM = apellidoM;
         this.apellidoP = apellidoP;
@@ -101,11 +105,11 @@ public class Cliente {
         this.calle = calle;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
@@ -117,19 +121,19 @@ public class Cliente {
         this.cp = cp;
     }
 
-    public String getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 
-    public String getCumpleanios() {
+    public Date getCumpleanios() {
         return cumpleanios;
     }
 
-    public void setCumpleanios(String cumpleanios) {
+    public void setCumpleanios(Date cumpleanios) {
         this.cumpleanios = cumpleanios;
     }
 
@@ -141,11 +145,11 @@ public class Cliente {
         this.email = email;
     }
 
-    public String getEsFrecuente() {
+    public boolean getEsFrecuente() {
         return esFrecuente;
     }
 
-    public void setEsFrecuente(String esFrecuente) {
+    public void setEsFrecuente(boolean esFrecuente) {
         this.esFrecuente = esFrecuente;
     }
     
