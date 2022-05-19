@@ -16,10 +16,10 @@ import java.util.Scanner;
  * @version 18-MAYO-2022
  */
 public class MenuEstetica{
-    private final Scanner entrada = new Scanner(System.in);
+    private Scanner entrada = new Scanner(System.in);
     private String eleccion = "";
     private Menu menu;
-    private final EsteticaServicio esteticasBase;
+    private EsteticaServicio esteticasBase;
     private List<Estetica> esteticas = new ArrayList<>();
    
     /**
@@ -91,7 +91,6 @@ public class MenuEstetica{
             System.out.println("\n----------------[ FIN DEL PROGRAMA ADIÓS T-T ]---------------\n");
             System.exit(0);
             break;
-
         default:
             System.out.println("Esa opción no es valida, vuelvelo a intentar.\n");
             break;
@@ -116,7 +115,7 @@ public class MenuEstetica{
         int numeroV = verificaNumero();
         int cpV = verificaCP();
         int horarioV = verificaHorario();
-        int noConsultoriosV = verificaNoConsultorios();
+        int noConsultoriosV = verificaConsultorios();
         Estetica e = new Estetica(idEsteticaV,
                                   nombre,
                                   estado,
@@ -134,92 +133,86 @@ public class MenuEstetica{
      * @return int -- El ID ya revisado.
      * @throws Exception -- Manda una excepción si ocurre un error
      */
-    public int verificaIDE() throws Exception{
-        esteticas = esteticasBase.getEsteticas();
-        System.out.println("Escribe el ID de la nueva estética que deseas agregar");
-        int idEstetica = entrada.nextInt();
-        Estetica E = dameEstetica(idEstetica);
-        if (E != null){
-            System.out.println("La estética ya existe, el ID ingresado ya se encuentra en la base");
-            System.out.println(E.toString());
-            verificaIDE();
-            return 0;
+    public int verificaIDE() {
+        System.out.println("Escribe el IDE de la estetica:");
+        String estetica = entrada.nextLine();
+        try {
+            int esteticaValida = Integer.parseInt(estetica);
+            return esteticaValida;
+        } catch (NumberFormatException ex) {
+            System.out.println("Ocurrio un error. El CP no es valido, vuelva a intentarlo.");
+            return verificaIDE();
         }
-        return idEstetica;
     }
-    /**
+    
+     /**
      * Método verificaCP
      * Verifica que el cp sea un entero valido.
      * @return int -- El cp ya revisado.
      */
     public int verificaCP() {
-        System.out.println("Escribe el cp de la nueva Estetica");
+        System.out.println("Escribe el CP del cliente:");
         String cp = entrada.nextLine();
         try {
             int cpValido = Integer.parseInt(cp);
             return cpValido;
         } catch (NumberFormatException ex) {
-            //ex.printStackTrace();
-            System.out.println("Ocurrio un error, el cp no es valido,vuelva a intentarlo");
-            verificaCP();
-            return 0;
+            System.out.println("Ocurrio un error. El CP no es valido, vuelva a intentarlo.");
+            return verificaCP();
         }
+    }
     
-}
     /**
      * Método verificaNumero
      * Verifica que el numero sea un entero valido.
      * @return int -- El numero ya revisado.
      */
     public int verificaNumero() {
-        System.out.println("Escribe el numero exterior de la nueva Estetica");
+        System.out.println("Escribe el número exterior del cliente:");
         String numero = entrada.nextLine();
         try {
             int numeroValido = Integer.parseInt(numero);
             return numeroValido;
         } catch (NumberFormatException ex) {
-            //ex.printStackTrace();
-            System.out.println("Ocurrio un error, el numero no es valido,vuelva a intentarlo");
-            verificaNumero();
-            return 0;
+            System.out.println("Ocurrio un error. El número no es valido, vuelva a intentarlo.");
+            return verificaNumero();
         }
     }
+    
     /**
      * Método verificaHorario
      * Verifica que el horario sea un entero valido.
      * @return int -- El numero ya revisado.
      */
     public int verificaHorario() {
-        System.out.println("Escribe el horario de la nueva Estetica");
+        System.out.println("Escribe el horario de la estetica");
         String horario = entrada.nextLine();
         try {
             int horarioValido = Integer.parseInt(horario);
             return horarioValido;
         } catch (NumberFormatException ex) {
-            //ex.printStackTrace();
-            System.out.println("Ocurrio un error, el numero no es valido,vuelva a intentarlo");
-            verificaHorario();
-            return 0;
+            System.out.println("Ocurrio un error. El horario no es valido, vuelva a intentarlo.");
+            return verificaHorario();
         }
     }
+    
     /**
      * Método verificaConsultorios
      * Verifica que el consultorio sea un entero valido.
      * @return int -- El numero ya revisado.
      */
-    public int verificaNoConsultorios() {
-        System.out.println("Escribe el número de consultorios de la nueva Estetica");
+    public int verificaConsultorios() {
+        System.out.println("Escribe el número de consultorios");
         String consultorios = entrada.nextLine();
         try {
-            int consultoriosValido = Integer.parseInt(consultorios);
-            return consultoriosValido;
+            int consultoriosValidos = Integer.parseInt(consultorios);
+            return consultoriosValidos;
         } catch (NumberFormatException ex) {
-            //ex.printStackTrace();
-            System.out.println("Ocurrio un error, el numero no es valido,vuelva a intentarlo");
-            verificaNoConsultorios();
-            return 0;
+            System.out.println("Ocurrio un error. El número de consultarios no es valido, vuelva a intentarlo.");
+            return verificaConsultorios();
         }
     }
+    
     /**
      * Método dameEstetica
      * Regresa la estética que tiene el ID proporcionado.
@@ -296,7 +289,7 @@ public class MenuEstetica{
             esteticasBase.actualizarEstetica(estetica, e);
             break;
         case "8":
-            int NoConsultoriosV = verificaNoConsultorios();
+            int NoConsultoriosV = verificaConsultorios();
             e.setNoConsultorio(NoConsultoriosV);
             esteticasBase.actualizarEstetica(estetica, e);
             break;
