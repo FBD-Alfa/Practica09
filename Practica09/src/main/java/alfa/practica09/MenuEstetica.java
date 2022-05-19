@@ -51,9 +51,27 @@ public class MenuEstetica{
             break;
         case "3":
             System.out.println("Eligio Actualizar Estetica");
+            System.out.println("Ingrese el ID de la estética a editar:");
+            int estetica = entrada.nextLine();
+            Estetica e = dameEstetica(estetica);
+            if (c != null){
+                editaEstetica(estetica,e);
+            }else{
+                System.out.println("El curp ingresado no existe.");
+                despliegaMenuCliente();
+            }
             break;
         case "4":
             System.out.println("Eligio Borrar Estetica");
+            System.out.println("Ingrese el ID de la estética  a eliminar:");
+            String IDEsteticaE = entrada.nextLine();
+            Estetica ee = dameEstetica(IDEsteticaE);
+            if (ee != null){
+                esteticasBase.borrarEstetica(IDEsteticaE);
+            }else{
+                System.out.println("El ID de la estética  ingresado no existe.");
+                despliegaMenuEstetica();
+            }
             break;
         case "5":
             System.out.println("Eligio Regresar al menu anterior");
@@ -168,5 +186,76 @@ public class MenuEstetica{
             }
         }
         return null;
+    }
+    public void editaEstetica(int estetica, Estetica e) throws Exception{
+        esteticas = esteticasBase.getEsteticas();
+        System.out.println("\n-------[ Elige una opción a editar]-------\n"
+                           + "1-. ID Estetica\n"
+                           + "2-. Nombre\n"
+                           + "3-. Estado\n"
+                           + "4-. Calle\n"
+                           + "5-. Número\n"
+                           + "6-. CP\n"
+                           + "7-. Horario\n"
+                           + "8-. NoConsultorios\n"
+                           + "9-. Menu Anterior\n"
+                           + "10-. Salir");
+        eleccion = entrada.nextLine();
+        switch (eleccion) {
+        case "1":
+            int esteticaV = verificaIDE();
+            e.setIdEstetica(esteticaV);
+            esteticasBase.actualizarEstetica(estetica, e);
+            break;
+        case "2":
+            System.out.println("Escribe el nombre de la estética:");
+            String nombre = entrada.nextLine();
+            e.setNombre(nombre);
+            esteticasBase.actualizarEstetica(estetica, e);
+            break;
+        case "3":
+            System.out.println("Escribe el estado de la estética:");
+            String estado = entrada.nextLine();
+            e.setEstado(estado);
+            esteticasBase.actualizarEstetica(estetica, e);
+            break;
+        case "4":
+            System.out.println("Escribe la calle de la estética:");
+            String calle  = entrada.nextLine();
+            e.setCalle(calle);
+            esteticasBase.actualizarEstetica(estetica, e);
+            break;
+        case "5":
+            int numeroV = verificaNumero();
+            e.setNumero(numeroV);
+            esteticasBase.actualizarEstetica(estetica, e);
+            break;
+        case "6":
+            int cpV = verificaCP();
+            e.setCp(cpV);
+            esteticasBase.actualizarEstetica(estetica, e);
+            break;
+        case "7":
+            int horarioV = verificaHorario();
+            e.setHorario(horarioV);
+            esteticasBase.actualizarEstetica(estetica, e);
+            break;
+        case "8":
+            int NoConsultoriosV = verificaNoConsultorios();
+            e.setNoConsultorios(NoConsultoriosV);
+            esteticasBase.actualizarEstetica(estetica, e);
+            break;
+        case "9":
+            despliegaMenuCliente();
+            break;
+        case "10":
+            System.out.println("\n----------------[ FIN DEL PROGRAMA ADIÓS T-T ]---------------\n");
+            System.exit(0);
+            break;
+        default:
+            System.out.println("Esa opción no es valida, vuelvelo a intentar.\n");
+            editaCliente(curp, c);
+            break;    
+        }
     }
 }
