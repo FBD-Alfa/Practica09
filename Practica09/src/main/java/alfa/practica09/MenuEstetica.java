@@ -133,11 +133,18 @@ public class MenuEstetica{
      * @return int -- El ID ya revisado.
      * @throws Exception -- Manda una excepción si ocurre un error
      */
-    public int verificaIDE() {
+    public int verificaIDE() throws Exception {
+        esteticas = esteticasBase.getEsteticas();
         System.out.println("Escribe el IDE de la estetica:");
         String estetica = entrada.nextLine();
         try {
             int esteticaValida = Integer.parseInt(estetica);
+            Estetica e = dameEstetica(esteticaValida);
+            if (e != null) {
+                    System.out.println("La estetica ya existe, el id ingresado ya se encuentra en la base.");
+                    System.out.println(e.toString());
+                    return verificaIDE();
+            }
             return esteticaValida;
         } catch (NumberFormatException ex) {
             System.out.println("Ocurrio un error. El CP no es valido, vuelva a intentarlo.");
