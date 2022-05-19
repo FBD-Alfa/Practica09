@@ -11,8 +11,9 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- *
- * @author annabeth
+ * Clase que modela un MenuEstetica.
+ * @author Gael
+ * @version 18-MAYO-2022
  */
 public class MenuEstetica{
     private final Scanner entrada = new Scanner(System.in);
@@ -21,13 +22,20 @@ public class MenuEstetica{
     private final EsteticaServicio esteticasBase;
     private List<Estetica> esteticas = new ArrayList<>();
    
-    
+    /**
+     * Método constructor MenuEstetica.
+     * @param menu, el menu principal.
+     */
     public MenuEstetica(Menu menu){
         this.menu = menu;
         this.esteticasBase = menu.getEsteticasBase();
         
     }
-    
+    /** Método despliegaMenuEstetica
+        * Despliega las opciones principales entre las que puede elegir el usuario
+        * para manipular a las esteticas.
+        * @throws Exception -- Manda una excepción si ocurre un error
+        */
     public void despliegaMenuEstetica() throws Exception{
         System.out.println("\n-------[ Elige una opción ]-------\n"+
                            "1-. Crear Estetica\n"+
@@ -88,6 +96,11 @@ public class MenuEstetica{
         }
         despliegaMenuEstetica();
     }
+    /**
+     * Método despliegaEsteticaNueva
+     * Despliega las instrucciones para la creación de una nueva estética.
+     * @throws Exception -- Manda una excepción si ocurre un error
+     */
     public void despliegaEsteticaNueva() throws Exception {
         String nombre, estado, calle;
         int  numero, cp , horario, noConsultorio;
@@ -113,6 +126,12 @@ public class MenuEstetica{
         esteticasBase.insertarEstetica(e);
         esteticas = esteticasBase.getEsteticas();
     }
+    /**
+     * Método verifica el ID
+     * Verifica que el curp sea un int.
+     * @return int -- El ID ya revisado.
+     * @throws Exception -- Manda una excepción si ocurre un error
+     */
     public int verificaIDE() throws Exception{
         esteticas = esteticasBase.getEsteticas();
         System.out.println("Escribe el ID de la nueva estética que deseas agregar");
@@ -126,6 +145,11 @@ public class MenuEstetica{
         }
         return idEstetica;
     }
+    /**
+     * Método verificaCP
+     * Verifica que el cp sea un entero valido.
+     * @return int -- El cp ya revisado.
+     */
     public int verificaCP() {
         System.out.println("Escribe el cp de la nueva Estetica");
         String cp = entrada.nextLine();
@@ -138,8 +162,13 @@ public class MenuEstetica{
             verificaCP();
             return 0;
         }
-    }
-
+    
+}
+    /**
+     * Método verificaNumero
+     * Verifica que el numero sea un entero valido.
+     * @return int -- El numero ya revisado.
+     */
     public int verificaNumero() {
         System.out.println("Escribe el numero exterior de la nueva Estetica");
         String numero = entrada.nextLine();
@@ -153,6 +182,11 @@ public class MenuEstetica{
             return 0;
         }
     }
+    /**
+     * Método verificaHorario
+     * Verifica que el horario sea un entero valido.
+     * @return int -- El numero ya revisado.
+     */
     public int verificaHorario() {
         System.out.println("Escribe el horario de la nueva Estetica");
         String horario = entrada.nextLine();
@@ -166,6 +200,11 @@ public class MenuEstetica{
             return 0;
         }
     }
+    /**
+     * Método verificaConsultorios
+     * Verifica que el consultorio sea un entero valido.
+     * @return int -- El numero ya revisado.
+     */
     public int verificaNoConsultorios() {
         System.out.println("Escribe el número de consultorios de la nueva Estetica");
         String consultorios = entrada.nextLine();
@@ -179,6 +218,13 @@ public class MenuEstetica{
             return 0;
         }
     }
+    /**
+     * Método dameEstetica
+     * Regresa la estética que tiene el ID proporcionado.
+     * @param idEstetica -- El ID proporcionado para localizar a la estética.
+     * @return Estetica -- La estetica con el ID.
+     * @throws Exception -- Manda una excepción si ocurre un error.
+     */
     public Estetica dameEstetica(int idEstetica) {
         for (Estetica e : esteticas) {
             if (e.getIdEstetica() == idEstetica) {
@@ -187,6 +233,13 @@ public class MenuEstetica{
         }
         return null;
     }
+    /**
+     * Método editaEstetica
+     * Cambia algún valor de la estética por uno nuevo.
+     * @param estetica -- El ID de la estética
+     * @param e -- La estética a editar
+     * @throws Exception -- Manda una excepción si ocurre un error
+     */
     public void editaEstetica(int estetica, Estetica e) throws Exception{
         esteticas = esteticasBase.getEsteticas();
         System.out.println("\n-------[ Elige una opción a editar]-------\n"
@@ -242,7 +295,7 @@ public class MenuEstetica{
             break;
         case "8":
             int NoConsultoriosV = verificaNoConsultorios();
-            e.setNoConsultorios(NoConsultoriosV);
+            e.setNoConsultorio(NoConsultoriosV);
             esteticasBase.actualizarEstetica(estetica, e);
             break;
         case "9":
