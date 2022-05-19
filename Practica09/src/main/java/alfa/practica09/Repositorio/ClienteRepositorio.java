@@ -46,8 +46,8 @@ public class ClienteRepositorio {
                rs.getString("apellidoM"),
                rs.getString("apellidoP"),   
                rs.getString("nombre"),
-               rs.getString("calle"),
                rs.getString("estado"),
+               rs.getString("calle"),
                rs.getInt("numero"),
                rs.getInt("cp"),
                rs.getLong("telefono"),
@@ -93,8 +93,8 @@ public class ClienteRepositorio {
                rs.getString("apellidoM"),
                rs.getString("apellidoP"),
                rs.getString("nombre"),
-               rs.getString("calle"),
                rs.getString("estado"),
+               rs.getString("calle"),
                rs.getInt("numero"),
                rs.getInt("cp"),
                rs.getLong("telefono"),
@@ -156,9 +156,9 @@ public class ClienteRepositorio {
      * @param cliente -- El cliente que vamos a intercambiar sus valores
      */
     public void actualizarCliente(String curp, Cliente cliente){
-        String query = "UPDATE cliente SET curp = ?, nombre = ?, "
-                + "apellidoPaterno = ?, apellidoMaterno = ?, "
-                + "horario=?, ciudad =?, calle=?, cp= ? WHERE curp = ?";
+        String query = "UPDATE cliente SET curp = ?, apellidoM = ?, apellidoP = ?, nombre = ?, "
+                + "estado = ?, calle = ?, numero = ?, cp = ?, telefono = ?, cumpleanios = ?, "
+                + "email = ?, esFrecuente = ? WHERE curp = ?";
         try{
             conexion.conectar();;
             ps = conexion.prepararDeclaracionPreparada(query);

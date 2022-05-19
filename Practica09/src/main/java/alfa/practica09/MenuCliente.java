@@ -52,6 +52,15 @@ public class MenuCliente {
                 break;
             case "3":
                 System.out.println("Eligio Actualizar Cliente");
+                System.out.println("Ingrese el CURP del cliente a editar");
+                String curp = entrada.nextLine();
+                Cliente c = dameCliente(curp);
+                if (c != null){
+                    editaCliente(curp,c);
+                }else{
+                    System.out.println("El curp ingresado no existe");
+                    despliegaMenuCliente();
+                }
                 break;
             case "4":
                 System.out.println("Eligio Borrar Cliente");
@@ -219,5 +228,104 @@ public class MenuCliente {
             }
         }
         return null;
+    }
+    
+    public void editaCliente(String curp, Cliente c) throws Exception{
+        clientes = clientesBase.getClientes();
+        System.out.println("\n-------[ Elige una opción a editar]-------\n"
+                + "1-. CURP\n"
+                + "2-. Apellido Materno\n"
+                + "3-. Apellido Paterno\n"
+                + "4-. Nombre\n"
+                + "5-. Estado\n"
+                + "6-. Calle\n"
+                + "7-. Número\n"
+                + "8-. CP\n"
+                + "9-. Telefono\n"
+                + "10-. Cumpleaños\n"
+                + "11-. Email\n"
+                + "12-. esFrecuente\n"
+                + "13-. Menu Anterior\n"
+                + "14-. Salir");
+        eleccion = entrada.nextLine();
+        switch (eleccion) {
+            case "1":
+                String curpV = verificaCURP();
+                c.setCurp(curpV);
+                clientesBase.actualizarCliente(curp, c);
+                break;
+            case "2":
+                System.out.println("Escribe el apellido materno del cliente");
+                String apellidoM = entrada.nextLine();
+                c.setApellidoM(apellidoM);
+                clientesBase.actualizarCliente(curp, c);
+                break;
+            case "3":
+                System.out.println("Escribe el apellido paterno del cliente");
+                String apellidoP = entrada.nextLine();
+                c.setApellidoP(apellidoP);
+                clientesBase.actualizarCliente(curp, c);
+                break;
+            case "4":
+                System.out.println("Escribe el nombre del cliente");
+                String nombre = entrada.nextLine();
+                c.setNombre(nombre);
+                clientesBase.actualizarCliente(curp, c);
+                break;
+            case "5":
+                System.out.println("Escribe el estado del cliente");
+                String estado = entrada.nextLine();
+                c.setEstado(estado);
+                clientesBase.actualizarCliente(curp, c);
+                break;
+            case "6":
+                System.out.println("Escribe la calle del cliente");
+                String calle = entrada.nextLine();
+                c.setCalle(calle);
+                clientesBase.actualizarCliente(curp, c);
+                break;
+            case "7":
+                int numeroV = verificaNumero();
+                c.setNumero(numeroV);
+                clientesBase.actualizarCliente(curp, c);
+                break;
+            case "8":
+                int cpV = verificaCP();
+                c.setCp(cpV);
+                clientesBase.actualizarCliente(curp, c);
+                break;
+            case "9":
+                long telefonoV = verificaTelefono();
+                c.setTelefono(telefonoV);
+                clientesBase.actualizarCliente(curp, c);
+                break;
+            case "10":
+                Date cumpleaniosV = verificaCumpleanios();
+                c.setCumpleanios(cumpleaniosV);
+                clientesBase.actualizarCliente(curp, c);
+                break;
+            case "11":
+                System.out.println("Escribe el email del cliente");
+                String email = entrada.nextLine();
+                c.setEmail(email);
+                clientesBase.actualizarCliente(curp, c);
+                break;
+            case "12":
+                boolean esFrecuenteV = verificaEsFrecuente();
+                c.setEsFrecuente(esFrecuenteV);
+                clientesBase.actualizarCliente(curp, c);
+                break;
+            case "13":
+                despliegaMenuCliente();
+                break;
+            case "14":
+                System.out.println("\n----------------[ FIN DEL PROGRAMA ADIÓS T-T ]---------------\n");
+                System.exit(0);
+                break;
+
+            default:
+                System.out.println("Esa opción no es valida, vuelvelo a intentar.\n");
+                break;    
+        }
     }
 }

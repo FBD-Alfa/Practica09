@@ -73,7 +73,7 @@ public class MenuEstetica{
     public void despliegaEsteticaNueva() throws Exception {
         String nombre, estado, calle;
         int  numero, cp , horario, noConsultorio;
-        String idEsteticaV= verificaIDE();
+        int idEsteticaV = verificaIDE();
         System.out.println("Escribe el nombre de la nueva estética");
         nombre = entrada.nextLine();
         System.out.println("Escribe el estado de la nueva estética");
@@ -93,10 +93,10 @@ public class MenuEstetica{
                                   horarioV,
                                   noConsultoriosV);
         esteticasBase.insertarEstetica(e);
-        esteticas = esteticasBase.getClientes();
+        esteticas = esteticasBase.getEsteticas();
     }
-    public String verificaIDE() throws Exception{
-        esteticas =esteticasBase.getClientes();
+    public int verificaIDE() throws Exception{
+        esteticas = esteticasBase.getEsteticas();
         System.out.println("Escribe el ID de la nueva estética que deseas agregar");
         int idEstetica = entrada.nextInt();
         Estetica E = dameEstetica(idEstetica);
@@ -104,7 +104,7 @@ public class MenuEstetica{
             System.out.println("La estética ya existe, el ID ingresado ya se encuentra en la base");
             System.out.println(E.toString());
             verificaIDE();
-            return "";
+            return 0;
         }
         return idEstetica;
     }
@@ -163,7 +163,7 @@ public class MenuEstetica{
     }
     public Estetica dameEstetica(int idEstetica) {
         for (Estetica e : esteticas) {
-            if (e.getIdEstetica().equals(idEstetica)) {
+            if (e.getIdEstetica() == idEstetica) {
                 return e;
             }
         }
