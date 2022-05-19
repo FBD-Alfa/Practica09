@@ -128,7 +128,7 @@ public class MenuCliente {
 
     public String verificaCURP() throws Exception {
         clientes = clientesBase.getClientes();
-        System.out.println("Escribe el curp del nuevo cliente con el formato LLLLNNNNNNLLLLLLNN\n"
+        System.out.println("Escribe el curp del cliente con el formato LLLLNNNNNNLLLLLLNN\n"
                          + "Donde L es una letra en mayuscula y N es un número.");
         String curp = entrada.nextLine();
         if (curp.length() == 18) {
@@ -148,7 +148,7 @@ public class MenuCliente {
     }
 
     public int verificaCP() {
-        System.out.println("Escribe el cp del nuevo cliente");
+        System.out.println("Escribe el cp del cliente");
         String cp = entrada.nextLine();
         try {
             int cpValido = Integer.parseInt(cp);
@@ -162,7 +162,7 @@ public class MenuCliente {
     }
 
     public int verificaNumero() {
-        System.out.println("Escribe el numero exterior del nuevo cliente");
+        System.out.println("Escribe el numero exterior del cliente");
         String numero = entrada.nextLine();
         try {
             int numeroValido = Integer.parseInt(numero);
@@ -193,7 +193,7 @@ public class MenuCliente {
     }
 
     public long verificaTelefono() {
-        System.out.println("Escribe el telefono del nuevo cliente");
+        System.out.println("Escribe el telefono del cliente");
         String telefono = entrada.nextLine();
         if (telefono.length() != 10) {
             System.out.println("Ocurrio un error, el telefono no es valido,"
@@ -215,7 +215,7 @@ public class MenuCliente {
     }
 
     public Date verificaCumpleanios() {
-        System.out.println("Escribe el cumpleaños del nuevo cliente.\n"
+        System.out.println("Escribe el cumpleaños del cliente.\n"
                 + "El formato del cumpleaños debe ser AAAA-MM-DD.");
         String cumpleanios = entrada.nextLine();
         try {
