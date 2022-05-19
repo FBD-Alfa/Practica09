@@ -40,11 +40,11 @@ public class MenuCliente {
         eleccion = entrada.nextLine();
         switch (eleccion) {
             case "1":
-                System.out.println("Eligio Crear Cliente");
+                System.out.println("Eligió Crear Cliente");
                 despliegaClienteNuevo();
                 break;
             case "2":
-                System.out.println("Eligio Leer Clientes");
+                System.out.println("Eligió Leer Clientes");
                 clientes = clientesBase.getClientes();
                 for (Cliente c : clientes) {
                     System.out.println(c);
@@ -63,10 +63,19 @@ public class MenuCliente {
                 }
                 break;
             case "4":
-                System.out.println("Eligio Borrar Cliente");
+                System.out.println("Eligió Borrar Cliente");
+                System.out.println("Ingrese el CURP del cliente a eliminar");
+                String curpE = entrada.nextLine();
+                Cliente ce = dameCliente(curpE);
+                if (ce != null){
+                    clientesBase.borrarCliente(curpE);
+                }else{
+                    System.out.println("El curp ingresado no existe");
+                    despliegaMenuCliente();
+                }
                 break;
             case "5":
-                System.out.println("Eligio Regresar al menu anterior");
+                System.out.println("Eligió Regresar al menu anterior");
                 menu.despliegaMenu();
                 break;
             case "6":
@@ -322,7 +331,6 @@ public class MenuCliente {
                 System.out.println("\n----------------[ FIN DEL PROGRAMA ADIÓS T-T ]---------------\n");
                 System.exit(0);
                 break;
-
             default:
                 System.out.println("Esa opción no es valida, vuelvelo a intentar.\n");
                 break;    
