@@ -12,8 +12,9 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- *
- * @author annabeth
+ * Clase que modela un MenuCliente.
+ * @author Cynthia
+ * @version 18-MAYO-2022
  */
 public class MenuCliente {
 
@@ -23,20 +24,31 @@ public class MenuCliente {
     private final ClienteServicio clientesBase;
     private List<Cliente> clientes = new ArrayList<>();
 
+    /**
+     * Método constructor MenuCliente.
+     * @param menu, el menu principal.
+     */
     public MenuCliente(Menu menu) {
         this.menu = menu;
         this.clientesBase = menu.getClientesBase();
 
     }
-
+    
+    /**
+     * Método despliegaMenuCliente
+     * Despliega las opciones principales entre las que puede elegir el usuario
+     * para manipular a los clientes.
+     * @throws Exception -- Manda una excepción si ocurre un error
+     */
     public void despliegaMenuCliente() throws Exception {
         System.out.println("\n-------[ Elige una opción ]-------\n"
                 + "1-. Crear Cliente.\n"
                 + "2-. Leer Clientes.\n"
-                + "3-. Actualizar Cliente.\n"
-                + "4-. Borrar Cliente.\n"
-                + "5-. Regresar al menu anterior.\n"
-                + "6-. Salir.");
+                + "3-. Ver Cliente\n"
+                + "4-. Actualizar Cliente.\n"
+                + "5-. Borrar Cliente.\n"
+                + "6-. Regresar al menu anterior.\n"
+                + "7-. Salir.");
         eleccion = entrada.nextLine();
         switch (eleccion) {
             case "1":
@@ -51,6 +63,19 @@ public class MenuCliente {
                 }
                 break;
             case "3":
+                System.out.println("Eligió Ver Cliente.");
+                System.out.println("Ingrese el CURP del cliente:");
+                String curpv = entrada.nextLine();
+                Cliente cv = dameCliente(curpv);
+                if (cv != null){
+                    System.out.println("El cliente con el curp "+curpv+" es:\n");
+                    System.out.println(clientesBase.getCliente(curpv));
+                }else{
+                    System.out.println("El curp ingresado no existe.");
+                    despliegaMenuCliente();
+                }
+                break;
+            case "4":
                 System.out.println("Eligió Actualizar Cliente.");
                 System.out.println("Ingrese el CURP del cliente a editar:");
                 String curp = entrada.nextLine();
@@ -62,7 +87,7 @@ public class MenuCliente {
                     despliegaMenuCliente();
                 }
                 break;
-            case "4":
+            case "5":
                 System.out.println("Eligió Borrar Cliente.");
                 System.out.println("Ingrese el CURP del cliente a eliminar:");
                 String curpE = entrada.nextLine();
@@ -74,11 +99,11 @@ public class MenuCliente {
                     despliegaMenuCliente();
                 }
                 break;
-            case "5":
+            case "6":
                 System.out.println("Eligió Regresar al menu anterior.");
                 menu.despliegaMenu();
                 break;
-            case "6":
+            case "7":
                 System.out.println("\n----------------[ FIN DEL PROGRAMA ADIÓS T-T ]---------------\n");
                 System.exit(0);
                 break;
@@ -89,7 +114,12 @@ public class MenuCliente {
                 break;
         }
     }
-
+    
+    /**
+     * Método despliegaClienteNuevo
+     * Despliega las instrucciones para la creación de un nuevo cliente.
+     * @throws Exception -- Manda una excepción si ocurre un error
+     */
     public void despliegaClienteNuevo() throws Exception {
         String apellidoM, apellidoP, nombre, estado, calle, email;
         String curpV = verificaCURP();
@@ -125,7 +155,13 @@ public class MenuCliente {
         clientesBase.insertarCliente(c);
         clientes = clientesBase.getClientes();
     }
-
+    
+    /**
+     * Método verificaCURP
+     * Verifica que el curp sea una cadena de longitud 18.
+     * @return String -- El curp ya revisado.
+     * @throws Exception -- Manda una excepción si ocurre un error
+     */
     public String verificaCURP() throws Exception {
         clientes = clientesBase.getClientes();
         System.out.println("Escribe el curp del cliente con el formato LLLLNNNNNNLLLLLLNN.\n"
@@ -144,7 +180,13 @@ public class MenuCliente {
             return verificaCURP();
         }
     }
-
+    
+    
+    /**
+     * Método verificaCP
+     * Verifica que el cp sea un entero valido.
+     * @return int -- El cp ya revisado.
+     */
     public int verificaCP() {
         System.out.println("Escribe el CP del cliente:");
         String cp = entrada.nextLine();
@@ -157,7 +199,12 @@ public class MenuCliente {
             return verificaCP();
         }
     }
-
+    
+    /**
+     * Método verificaNumero
+     * Verifica que el numero sea un entero valido.
+     * @return int -- El numero ya revisado.
+     */
     public int verificaNumero() {
         System.out.println("Escribe el número exterior del cliente:");
         String numero = entrada.nextLine();
@@ -169,7 +216,12 @@ public class MenuCliente {
             return verificaNumero();
         }
     }
-
+    
+    /**
+     * Método verificaEsFrecuente
+     * Transforma la opción ingresada por el usuario a un valor boolean.
+     * @return boolean -- El valor de esFrecuente.
+     */
     public boolean verificaEsFrecuente() {
         System.out.println("¿El cliente es frecuente?\n"
                 + "1-. Si\n"
@@ -185,7 +237,12 @@ public class MenuCliente {
                 return verificaEsFrecuente();
         }
     }
-
+    
+    /**
+     * Método verificaTelefono
+     * Verifica que el telefono sea un long valido de 10 digitos.
+     * @return long -- El telefono ya revisado.
+     */
     public long verificaTelefono() {
         System.out.println("Escribe el telefono del cliente:");
         String telefono = entrada.nextLine();
@@ -204,7 +261,12 @@ public class MenuCliente {
             }
         }
     }
-
+    
+    /**
+     * Método verificaCumpleanios
+     * Verifica que el cumpleanios este escrito en un formato de fecha valido.
+     * @return Date -- El cumpleanios ya revisado.
+     */
     public Date verificaCumpleanios() {
         System.out.println("Escribe el cumpleaños del cliente.\n"
                 + "El formato del cumpleaños debe ser AAAA-MM-DD.");
@@ -218,7 +280,14 @@ public class MenuCliente {
             return verificaCumpleanios();
         }
     }
-
+    
+    /**
+     * Método dameCliente
+     * Regresa el cliente que tenga el curp proporcionado.
+     * @param curp -- El curp proporcionado para localizar el cliente.
+     * @return Cliente -- El cliente con el curp.
+     * @throws Exception -- Manda una excepción si ocurre un error.
+     */
     public Cliente dameCliente(String curp) throws Exception {
         clientes = clientesBase.getClientes();
         for (Cliente c : clientes) {
@@ -229,6 +298,13 @@ public class MenuCliente {
         return null;
     }
     
+    /**
+     * Método editaCliente
+     * Cambia algún valor del cliente por uno nuevo.
+     * @param curp -- El curp del cliente
+     * @param c -- El cliente a editar
+     * @throws Exception -- Manda una excepción si ocurre un error
+     */
     public void editaCliente(String curp, Cliente c) throws Exception{
         clientes = clientesBase.getClientes();
         System.out.println("\n-------[ Elige una opción a editar]-------\n"

@@ -14,8 +14,9 @@ import java.util.Scanner;
 //import java.util.List;
 
 /**
- *
- * @author annabeth
+ * Clase Menu, la clase que lanza el menu principal.
+ * @author cynthia
+ * @version 18-MAYO-2022
  */
 public class Menu {
     
@@ -23,8 +24,10 @@ public class Menu {
     private String eleccion = "";
     private ClienteServicio clientesBase;
     private EsteticaServicio esteticasBase;
-    //private EsteticaServicio esteticasBase;
     
+    /**
+     * Método constructor Menu, crea un Menu.
+     */
     public Menu(){
        ConexionBD conexion= new ConexionBD();
        System.out.println("Cargando datos de los clientes y las esteticas...");
@@ -41,21 +44,43 @@ public class Menu {
        }
     }
     
+    /**
+     * Método setClientesBase, cambia los clientes de la base por otros nuevos.
+     * @param clientesBase -- Los clientes obtenidos de la base de datos.
+     */
     public void setClientesBase(ClienteServicio clientesBase){
         this.clientesBase = clientesBase;
     }
     
+    /**
+     * Método getClientesBase, regresa los clientes de la base de datos.
+     * @return ClienteServicio -- Los clientes de la base de datos.
+     */
     public ClienteServicio getClientesBase(){
         return clientesBase;
     }
     
+    /**
+     * Método setEsteticas, cambia los clientes de la base por otros nuevos.
+     * @param esteticasBase -- Las esteticas obtenidas de la base de datos.
+     */
     public void setEsteticasBase(EsteticaServicio esteticasBase){
         this.esteticasBase = esteticasBase;
     }
     
+     /**
+     * Método getEsteticasBase, regresa las esteticas de la base de datos.
+     * @return EsteticaServicio -- Las esteticas de la base de datos.
+     */
     public EsteticaServicio getEsteticasBase(){
         return esteticasBase;
     }
+    
+    /**
+     *  Método despliegaMenu, despliega el menu principal para elegir si trabajar
+     *  sobre clientes o sobre esteticas.
+     * @throws java.lang.Exception -- En caso de un error.
+     */
     public void despliegaMenu() throws Exception{
         System.out.println("\n-------[ Elige una opción ]-------\n"+
                            "1-. Estetica\n"+
