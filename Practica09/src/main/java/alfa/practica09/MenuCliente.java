@@ -63,18 +63,23 @@ public class MenuCliente {
                 }
                 break;
             case "3":
-                System.out.println("Eligió Ver Cliente.");
-                System.out.println("Ingrese el CURP del cliente:");
-                String curpv = entrada.nextLine();
-                Cliente cv = dameCliente(curpv);
-                if (cv != null){
-                    System.out.println("El cliente con el curp "+curpv+" es:\n");
-                    System.out.println(clientesBase.getCliente(curpv));
-                }else{
+                System.out.println("Eligió Leer la información de un Cliente.");
+                System.out.println("Ingrese el CURP del cliente que desea consultar:");
+                String curp2 = entrada.nextLine();   
+                if (curp2.length() == 18) {
+                Cliente cli = clientesBase.getCliente(curp2);
+                   if (cli != null) {
+                    System.out.println("La información del clientes es:");
+                    System.out.println(cli.toString());
+                   }else{
                     System.out.println("El curp ingresado no existe.");
                     despliegaMenuCliente();
-                }
-                break;
+                   }
+                } else {
+                 System.out.println("El CURP debe de ser de 18 elementos, vuelva a intentarlo");
+                 despliegaMenuCliente();
+                }                
+                break;  
             case "4":
                 System.out.println("Eligió Actualizar Cliente.");
                 System.out.println("Ingrese el CURP del cliente a editar:");

@@ -60,19 +60,21 @@ public class MenuEstetica{
         case "3":
             System.out.println("Eligio Actualizar Estetica");
             System.out.println("Ingrese el ID de la estética a editar:");
-            int estetica = entrada.nextLine();
+            String estetica0 = entrada.nextLine();
+            int estetica= Integer.parseInt(estetica0);
             Estetica e = dameEstetica(estetica);
-            if (c != null){
+            if (e != null){
                 editaEstetica(estetica,e);
             }else{
                 System.out.println("El curp ingresado no existe.");
-                despliegaMenuCliente();
+                 despliegaMenuEstetica();
             }
             break;
         case "4":
             System.out.println("Eligio Borrar Estetica");
             System.out.println("Ingrese el ID de la estética  a eliminar:");
-            String IDEsteticaE = entrada.nextLine();
+            String IDEsteticaE0 = entrada.nextLine();
+            int IDEsteticaE = Integer.parseInt(IDEsteticaE0);
             Estetica ee = dameEstetica(IDEsteticaE);
             if (ee != null){
                 esteticasBase.borrarEstetica(IDEsteticaE);
@@ -299,7 +301,7 @@ public class MenuEstetica{
             esteticasBase.actualizarEstetica(estetica, e);
             break;
         case "9":
-            despliegaMenuCliente();
+            despliegaMenuEstetica();
             break;
         case "10":
             System.out.println("\n----------------[ FIN DEL PROGRAMA ADIÓS T-T ]---------------\n");
@@ -307,7 +309,7 @@ public class MenuEstetica{
             break;
         default:
             System.out.println("Esa opción no es valida, vuelvelo a intentar.\n");
-            editaCliente(curp, c);
+            editaEstetica(estetica, e);
             break;    
         }
     }

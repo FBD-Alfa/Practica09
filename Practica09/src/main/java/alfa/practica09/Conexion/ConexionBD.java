@@ -21,7 +21,7 @@ public class ConexionBD {
     public void conectar () throws SQLException{
         //driver:SMBD:puerto:ruta/BD
        String jdbc="jdbc:postgresql://localhost:5432/postgres";
-       conexion=DriverManager.getConnection(jdbc,"postgres","");
+       conexion=DriverManager.getConnection(jdbc,"postgres","fbd2022");
        System.out.println("Conexión Exitosa");
        
     }
