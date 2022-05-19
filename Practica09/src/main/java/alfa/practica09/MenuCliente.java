@@ -31,51 +31,51 @@ public class MenuCliente {
 
     public void despliegaMenuCliente() throws Exception {
         System.out.println("\n-------[ Elige una opción ]-------\n"
-                + "1-. Crear Cliente\n"
-                + "2-. Leer Clientes\n"
-                + "3-. Actualizar Cliente\n"
-                + "4-. Borrar Cliente\n"
-                + "5-. Regresar al menu anterior\n"
-                + "6-. Salir");
+                + "1-. Crear Cliente.\n"
+                + "2-. Leer Clientes.\n"
+                + "3-. Actualizar Cliente.\n"
+                + "4-. Borrar Cliente.\n"
+                + "5-. Regresar al menu anterior.\n"
+                + "6-. Salir.");
         eleccion = entrada.nextLine();
         switch (eleccion) {
             case "1":
-                System.out.println("Eligió Crear Cliente");
+                System.out.println("Eligió Crear Cliente.");
                 despliegaClienteNuevo();
                 break;
             case "2":
-                System.out.println("Eligió Leer Clientes");
+                System.out.println("Eligió Leer Clientes.");
                 clientes = clientesBase.getClientes();
                 for (Cliente c : clientes) {
                     System.out.println(c);
                 }
                 break;
             case "3":
-                System.out.println("Eligio Actualizar Cliente");
-                System.out.println("Ingrese el CURP del cliente a editar");
+                System.out.println("Eligió Actualizar Cliente.");
+                System.out.println("Ingrese el CURP del cliente a editar:");
                 String curp = entrada.nextLine();
                 Cliente c = dameCliente(curp);
                 if (c != null){
                     editaCliente(curp,c);
                 }else{
-                    System.out.println("El curp ingresado no existe");
+                    System.out.println("El curp ingresado no existe.");
                     despliegaMenuCliente();
                 }
                 break;
             case "4":
-                System.out.println("Eligió Borrar Cliente");
-                System.out.println("Ingrese el CURP del cliente a eliminar");
+                System.out.println("Eligió Borrar Cliente.");
+                System.out.println("Ingrese el CURP del cliente a eliminar:");
                 String curpE = entrada.nextLine();
                 Cliente ce = dameCliente(curpE);
                 if (ce != null){
                     clientesBase.borrarCliente(curpE);
                 }else{
-                    System.out.println("El curp ingresado no existe");
+                    System.out.println("El curp ingresado no existe.");
                     despliegaMenuCliente();
                 }
                 break;
             case "5":
-                System.out.println("Eligió Regresar al menu anterior");
+                System.out.println("Eligió Regresar al menu anterior.");
                 menu.despliegaMenu();
                 break;
             case "6":
@@ -85,9 +85,9 @@ public class MenuCliente {
 
             default:
                 System.out.println("Esa opción no es valida, vuelvelo a intentar.\n");
+                despliegaMenuCliente();
                 break;
         }
-        despliegaMenuCliente();
     }
 
     public void despliegaClienteNuevo() throws Exception {
@@ -128,7 +128,7 @@ public class MenuCliente {
 
     public String verificaCURP() throws Exception {
         clientes = clientesBase.getClientes();
-        System.out.println("Escribe el curp del cliente con el formato LLLLNNNNNNLLLLLLNN\n"
+        System.out.println("Escribe el curp del cliente con el formato LLLLNNNNNNLLLLLLNN.\n"
                          + "Donde L es una letra en mayuscula y N es un número.");
         String curp = entrada.nextLine();
         if (curp.length() == 18) {
@@ -136,42 +136,37 @@ public class MenuCliente {
             if (c != null) {
                     System.out.println("El cliente ya existe, el CURP ingresado ya se encuentra en la base.");
                     System.out.println(c.toString());
-                    verificaCURP();
-                    return "";
+                    return verificaCURP();
             }
             return curp;
         } else {
             System.out.println("El CURP debe de ser de 18 elementos, vuelva a intentarlo");
-            verificaCURP();
+            return verificaCURP();
         }
-        return "";
     }
 
     public int verificaCP() {
-        System.out.println("Escribe el cp del cliente");
+        System.out.println("Escribe el CP del cliente:");
         String cp = entrada.nextLine();
         try {
             int cpValido = Integer.parseInt(cp);
             return cpValido;
         } catch (NumberFormatException ex) {
             //ex.printStackTrace();
-            System.out.println("Ocurrio un error, el cp no es valido,vuelva a intentarlo");
-            verificaCP();
-            return 0;
+            System.out.println("Ocurrio un error. El CP no es valido, vuelva a intentarlo.");
+            return verificaCP();
         }
     }
 
     public int verificaNumero() {
-        System.out.println("Escribe el numero exterior del cliente");
+        System.out.println("Escribe el número exterior del cliente:");
         String numero = entrada.nextLine();
         try {
             int numeroValido = Integer.parseInt(numero);
             return numeroValido;
         } catch (NumberFormatException ex) {
-            //ex.printStackTrace();
-            System.out.println("Ocurrio un error, el numero no es valido,vuelva a intentarlo");
-            verificaNumero();
-            return 0;
+            System.out.println("Ocurrio un error. El número no es valido, vuelva a intentarlo.");
+            return verificaNumero();
         }
     }
 
@@ -187,31 +182,27 @@ public class MenuCliente {
                 return false;
             default:
                 System.out.println("Da un valor valido");
-                verificaEsFrecuente();
-                return false;
+                return verificaEsFrecuente();
         }
     }
 
     public long verificaTelefono() {
-        System.out.println("Escribe el telefono del cliente");
+        System.out.println("Escribe el telefono del cliente:");
         String telefono = entrada.nextLine();
         if (telefono.length() != 10) {
-            System.out.println("Ocurrio un error, el telefono no es valido,"
+            System.out.println("Ocurrio un error. El telefono no es valido, "
                     + "no cuenta con 10 digitos.\nVuelva a intentarlo.");
-            verificaTelefono();
+            return verificaTelefono();
         } else {
             try {
                 long telefonoValido = Long.parseLong(telefono);
                 return telefonoValido;
             } catch (NumberFormatException ex) {
-                //ex.printStackTrace();
-                System.out.println("Ocurrio un error, el telefono no es valido\n"
+                System.out.println("Ocurrio un error, el telefono no es valido.\n"
                         + "Vuelva a intentarlo");
-                verificaTelefono();
-                return 0;
+                return verificaTelefono();
             }
         }
-        return 0;
     }
 
     public Date verificaCumpleanios() {
@@ -222,15 +213,14 @@ public class MenuCliente {
             Date cumpleaniosValido = Date.valueOf(cumpleanios);
             return cumpleaniosValido;
         } catch (IllegalArgumentException ex) {
-            //ex.printStackTrace();
-            System.out.println("Ocurrio un error, el cumpleaños no es valido\n"
+            System.out.println("Ocurrio un error, el cumpleaños no es valido.\n"
                     + "Vuelva a intentarlo");
-            verificaCumpleanios();
-            return null;
+            return verificaCumpleanios();
         }
     }
 
-    public Cliente dameCliente(String curp) {
+    public Cliente dameCliente(String curp) throws Exception {
+        clientes = clientesBase.getClientes();
         for (Cliente c : clientes) {
             if (c.getCurp().equals(curp)) {
                 return c;
@@ -264,31 +254,31 @@ public class MenuCliente {
                 clientesBase.actualizarCliente(curp, c);
                 break;
             case "2":
-                System.out.println("Escribe el apellido materno del cliente");
+                System.out.println("Escribe el apellido materno del cliente:");
                 String apellidoM = entrada.nextLine();
                 c.setApellidoM(apellidoM);
                 clientesBase.actualizarCliente(curp, c);
                 break;
             case "3":
-                System.out.println("Escribe el apellido paterno del cliente");
+                System.out.println("Escribe el apellido paterno del cliente:");
                 String apellidoP = entrada.nextLine();
                 c.setApellidoP(apellidoP);
                 clientesBase.actualizarCliente(curp, c);
                 break;
             case "4":
-                System.out.println("Escribe el nombre del cliente");
+                System.out.println("Escribe el nombre del cliente:");
                 String nombre = entrada.nextLine();
                 c.setNombre(nombre);
                 clientesBase.actualizarCliente(curp, c);
                 break;
             case "5":
-                System.out.println("Escribe el estado del cliente");
+                System.out.println("Escribe el estado del cliente:");
                 String estado = entrada.nextLine();
                 c.setEstado(estado);
                 clientesBase.actualizarCliente(curp, c);
                 break;
             case "6":
-                System.out.println("Escribe la calle del cliente");
+                System.out.println("Escribe la calle del cliente:");
                 String calle = entrada.nextLine();
                 c.setCalle(calle);
                 clientesBase.actualizarCliente(curp, c);
@@ -314,7 +304,7 @@ public class MenuCliente {
                 clientesBase.actualizarCliente(curp, c);
                 break;
             case "11":
-                System.out.println("Escribe el email del cliente");
+                System.out.println("Escribe el email del cliente:");
                 String email = entrada.nextLine();
                 c.setEmail(email);
                 clientesBase.actualizarCliente(curp, c);
@@ -333,6 +323,7 @@ public class MenuCliente {
                 break;
             default:
                 System.out.println("Esa opción no es valida, vuelvelo a intentar.\n");
+                editaCliente(curp, c);
                 break;    
         }
     }
